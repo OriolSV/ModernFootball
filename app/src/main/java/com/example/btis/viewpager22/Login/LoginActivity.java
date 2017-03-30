@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         EditText txtMail = (EditText) findViewById(R.id.txtMail);
         EditText txPass = (EditText) findViewById(R.id.txtPass);
-        CheckBox chkPass = (CheckBox) findViewById(R.id.chkPass);
+
       //  Button logIn = (Button) findViewById(R.id.btnLogin);
         findViewById(R.id.btnLogin).setOnClickListener(this);
         findViewById(R.id.btnToRegister).setOnClickListener(this);
