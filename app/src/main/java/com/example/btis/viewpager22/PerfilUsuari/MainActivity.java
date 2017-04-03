@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.btis.viewpager22.Provisional.Pendents2Fragment;
 import com.example.btis.viewpager22.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+          //  FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
             return true;
         }
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.example.btis.viewpager22.PerfilUsuari.MainActivity;
@@ -44,7 +45,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
                     Log.i("Sesion", "sesion iniciada con email: "+user.getEmail());
-
+                    Intent next = new Intent (LoginActivity2.this, MainActivity.class);
+                    startActivity(next);
                 }else{
                     Log.i("Sesion", "sesion cerrada");
                 }
@@ -53,16 +55,20 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void registrar (String email, String pass){
+    private void registrar (final String email, String pass){
+
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Log.i("Sesion", "usuari creat correctament");
+                    Toast.makeText(LoginActivity2.this, "Usuari registrat: "+ email  , Toast.LENGTH_SHORT)
+                            .show();
                     Intent next = new Intent (LoginActivity2.this, MainActivity.class);
                     startActivity(next);
                 }else{
+                    Toast.makeText(LoginActivity2.this, "Error " , Toast.LENGTH_SHORT)
+                            .show();
                     Log.e("Sesion", task.getException().getMessage()+"");
                 }
             }
@@ -70,9 +76,26 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void iniciarSesion (String email, String pass){
+    private void iniciarSesion (final String email, String pass){
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass);
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(LoginActivity2.this, "Sessió iniciada como: "+ email  , Toast.LENGTH_SHORT)
+                            .show();
+
+                    Intent next = new Intent (LoginActivity2.this, MainActivity.class);
+                    startActivity(next);
+                }else{
+                    Toast.makeText(LoginActivity2.this, "Usuari o contrasenya incorrectesa", Toast.LENGTH_SHORT)
+                            .show();
+                    Log.e("Sesion", task.getException().getMessage()+"");
+
+                }
+
+            }
+        });
 
     }
 
@@ -88,7 +111,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             case R.id.btnToRegister:
                 String emailRegister = editTextEmail.getText().toString();
                 String passRegister = editTextPass.getText().toString();
-                iniciarSesion(emailRegister,passRegister);
+                registrar(emailRegister,passRegister);
                 break;
         }
     }
@@ -103,8 +126,9 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener !=null){
-            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
-        }
+       /* if (mAuthListener !=null){
+          FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+        }*/
+    FirebaseAuth.getInstance().signOut();
     }
 }
