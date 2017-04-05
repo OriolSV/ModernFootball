@@ -44,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tvNom = (TextView) findViewById(R.id.nomUsuari);
+        Bundle bolsaR = getIntent().getExtras();
+        tvNom.setText(bolsaR.getString("mailKey"));
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

@@ -55,6 +55,10 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+
+
+    /*
     private void registrar (final String email, String pass){
 
 
@@ -74,7 +78,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-    }
+    }*/
 
     private void iniciarSesion (final String email, String pass){
 
@@ -86,9 +90,12 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                             .show();
 
                     Intent next = new Intent (LoginActivity2.this, MainActivity.class);
+                    Bundle bolsa = new Bundle();
+                    bolsa.putString("mailKey", email);
+                    next.putExtras(bolsa);
                     startActivity(next);
                 }else{
-                    Toast.makeText(LoginActivity2.this, "Usuari o contrasenya incorrectesa", Toast.LENGTH_SHORT)
+                    Toast.makeText(LoginActivity2.this, "Usuari o contrasenya incorrectes", Toast.LENGTH_SHORT)
                             .show();
                     Log.e("Sesion", task.getException().getMessage()+"");
 
@@ -109,9 +116,10 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.btnToRegister:
-                String emailRegister = editTextEmail.getText().toString();
-                String passRegister = editTextPass.getText().toString();
-                registrar(emailRegister,passRegister);
+                //String emailRegister = editTextEmail.getText().toString();
+                //String passRegister = editTextPass.getText().toString();
+                Intent reg = new Intent(LoginActivity2.this, RegisterActivity.class);
+                startActivity(reg);
                 break;
         }
     }
