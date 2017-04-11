@@ -1,6 +1,7 @@
 package com.example.btis.viewpager22.PerfilUsuari;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -12,13 +13,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.btis.viewpager22.Login.LoginActivity;
 import com.example.btis.viewpager22.Provisional.Pendents2Fragment;
 import com.example.btis.viewpager22.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -29,11 +43,16 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
 
-    TextView tvNom;
-    String tvTwitter;
-    TextView tvInsta;
+    private TextView tvNom;
+    private TextView tvMail;
+    private CircleImageView photoImageView;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private GoogleApiClient googleApiClient;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -48,21 +67,36 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tvNom = (TextView) findViewById(R.id.tvPlace);
+        tvNom = (TextView) findViewById(R.id.nomUsuari);
+        tvMail = (TextView) findViewById(R.id.tvMail);
+        photoImageView = (CircleImageView) findViewById(R.id.user_profile_photo);
 
-        Bundle bolsaR = getIntent().getExtras();
-        tvNom.setText(bolsaR.getString("User"));
 
-       // Fragment fragment = new Fragment2 ();
-        //fragment.setArguments(bolsaR);
 
-        //tvTwitter = (TextView) findViewById(R.id.txtTwitterSocial);
-        //tvInsta = (TextView) findViewById(R.id.txtInstaSocial);
-/*
-        setContentView(R.layout.tab1_profile);
-        fragment.getArguments().getString("Instagram");
-        tvInsta.setText("Instagram");
-*/
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    setUserData(user);
+                } else {
+                    goLogInScreen();
+                }
+            }
+        };
+
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -71,15 +105,73 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-
-
-        /*
-        tvNom = (TextView) findViewById(R.id.NomUsuari);
-        Bundle datoR = getIntent().getExtras();
-        tvNom.setText(datoR.getString("Nom"));
-    */
     }
+
+    private void setUserData(FirebaseUser user) {
+        tvNom.setText(user.getDisplayName());
+        tvMail.setText(user.getEmail());
+        Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    }
+
+    private void goLogInScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void logOut() {
+        firebaseAuth.signOut();
+
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+                    goLogInScreen();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.not_close_session, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void revoke(View view) {
+        firebaseAuth.signOut();
+
+        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+                    goLogInScreen();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.not_revoke, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (firebaseAuthListener != null) {
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
+    }
+
+
+
 
 
 
@@ -102,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-          //  FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+            logOut();
+
             return true;
         }
 

@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ee3f504b"
+            android:background="#a4c639"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
@@ -65,11 +65,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_place_black_24dp"
+                            android:src="@android:drawable/ic_dialog_email"
                             android:tint="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/tvPlace"
+                            android:id="@+id/tvMail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -111,14 +111,14 @@
 
 
         <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity= "top"
-            android:background="#ee3f504b"
-            android:textColor = "#fff"
-            android:paddingTop="4dp"
+            android:layout_gravity="top"
+            android:background="#a4c639"
             android:paddingBottom="4dp"
-            android:id="@+id/tab_layout" />
+            android:paddingTop="4dp"
+            android:textColor="#fff" />
 
 
     </android.support.v4.view.ViewPager>
