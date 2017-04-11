@@ -1,5 +1,6 @@
 package com.example.btis.viewpager22.PerfilUsuari;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     TextView tvNom;
+    String tvTwitter;
+    TextView tvInsta;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -45,11 +48,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tvNom = (TextView) findViewById(R.id.nomUsuari);
+        tvNom = (TextView) findViewById(R.id.tvPlace);
+
         Bundle bolsaR = getIntent().getExtras();
-        tvNom.setText(bolsaR.getString("mailKey"));
+        tvNom.setText(bolsaR.getString("User"));
 
+       // Fragment fragment = new Fragment2 ();
+        //fragment.setArguments(bolsaR);
 
+        //tvTwitter = (TextView) findViewById(R.id.txtTwitterSocial);
+        //tvInsta = (TextView) findViewById(R.id.txtInstaSocial);
+/*
+        setContentView(R.layout.tab1_profile);
+        fragment.getArguments().getString("Instagram");
+        tvInsta.setText("Instagram");
+*/
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -57,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
 
 
 
@@ -118,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
 
             if (position ==1){
+
 
                 return Pendents2Fragment.newInstance(position + 1);
 

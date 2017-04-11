@@ -56,37 +56,13 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
-
-    /*
-    private void registrar (final String email, String pass){
-
-
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity2.this, "Usuari registrat: "+ email  , Toast.LENGTH_SHORT)
-                            .show();
-                    Intent next = new Intent (LoginActivity2.this, MainActivity.class);
-                    startActivity(next);
-                }else{
-                    Toast.makeText(LoginActivity2.this, "Error " , Toast.LENGTH_SHORT)
-                            .show();
-                    Log.e("Sesion", task.getException().getMessage()+"");
-                }
-            }
-        });
-
-    }*/
-
-    private void iniciarSesion (final String email, String pass){
+        private void iniciarSesion (final String email, String pass){
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity2.this, "Sessió iniciada como: "+ email  , Toast.LENGTH_SHORT)
+                    Toast.makeText(LoginActivity2.this, "Sessió iniciada com: "+ email  , Toast.LENGTH_SHORT)
                             .show();
 
                     Intent next = new Intent (LoginActivity2.this, MainActivity.class);
@@ -116,8 +92,6 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.btnToRegister:
-                //String emailRegister = editTextEmail.getText().toString();
-                //String passRegister = editTextPass.getText().toString();
                 Intent reg = new Intent(LoginActivity2.this, RegisterActivity.class);
                 startActivity(reg);
                 break;

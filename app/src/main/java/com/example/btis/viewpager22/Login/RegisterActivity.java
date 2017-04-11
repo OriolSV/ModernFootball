@@ -3,6 +3,7 @@ package com.example.btis.viewpager22.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.btis.viewpager22.PerfilUsuari.Fragment2;
 import com.example.btis.viewpager22.PerfilUsuari.MainActivity;
 import com.example.btis.viewpager22.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -89,8 +91,15 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Usuari registrat correctament ", Toast.LENGTH_SHORT)
                                 .show();
+                        Bundle social = new Bundle();
+
+                        social.putString("Instagram", String.valueOf(txtInstagram));
+                        social.putString("Twitter", String.valueOf(txtTwitter));
+                        social.putString("User", String.valueOf(txtUsername));
                         Intent next = new Intent(RegisterActivity.this, MainActivity.class);
+                        next.putExtras(social);
                         startActivity(next);
+
                     } else {
                         Toast.makeText(RegisterActivity.this, "Error ", Toast.LENGTH_SHORT)
                                 .show();

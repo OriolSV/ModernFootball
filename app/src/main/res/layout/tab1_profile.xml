@@ -88,14 +88,15 @@
             android:visibility="visible" />
 
         <TextView
+            android:id="@+id/txtTwitterSocial"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="         twitter.com/Santacanarinha"
             android:gravity="center_vertical"
-            android:textStyle="normal|bold"
+            android:text="         twitter.com/Santacanarinha"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
 
     </LinearLayout>
 
@@ -115,14 +116,15 @@
             android:visibility="visible" />
 
         <TextView
+            android:id="@+id/txtInstaSocial"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="         instagram.com/Santacanarinha"
             android:gravity="center_vertical"
-            android:textStyle="normal|bold"
+            android:text="         instagram.com/Santacanarinha"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
 
     </LinearLayout>
 
