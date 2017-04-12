@@ -1,11 +1,10 @@
-package com.example.btis.viewpager22.PerfilUsuari;
+package com.example.btis.viewpager22.PerfilEquipsFavorits;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.btis.viewpager22.R;
 
@@ -37,6 +36,7 @@ public class Fragment2 extends Fragment {
 
 
 
+
         return fragment;
     }
 
@@ -47,8 +47,6 @@ public class Fragment2 extends Fragment {
 
 
 
-        //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         return rootView;
     }
 }

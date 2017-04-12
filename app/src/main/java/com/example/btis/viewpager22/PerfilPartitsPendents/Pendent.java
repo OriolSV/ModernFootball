@@ -1,4 +1,4 @@
-package com.example.btis.viewpager22.Provisional;
+package com.example.btis.viewpager22.PerfilPartitsPendents;
 
 /**
  * Created by BTIS on 24/03/2017.

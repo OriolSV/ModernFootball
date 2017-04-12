@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.btis.viewpager22.Login.LoginActivity;
-import com.example.btis.viewpager22.Provisional.Pendents2Fragment;
+import com.example.btis.viewpager22.PerfilEquipsFavorits.Fragment2;
+import com.example.btis.viewpager22.PerfilPartitsPendents.Pendents2Fragment;
 import com.example.btis.viewpager22.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,15 +35,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+    /*
+    D
      */
-
     private TextView tvNom;
     private TextView tvMail;
     private CircleImageView photoImageView;
@@ -54,9 +49,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
     private ViewPager mViewPager;
 
     @Override
@@ -172,12 +165,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
 
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -240,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -248,11 +235,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             switch (position) {
 
                 case 0:
-                    return "Info";
+                    return "Partits pendents";
                 case 1:
-                    return "Pendents";
-                case 2:
-                    return "Valoracions";
+                    return "Equips favorits";
+
 
             }
             return null;
