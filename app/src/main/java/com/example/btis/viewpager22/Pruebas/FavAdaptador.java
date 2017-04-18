@@ -1,4 +1,4 @@
-package com.example.btis.viewpager22.PerfilEquipsFavorits;
+package com.example.btis.viewpager22.Pruebas;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.btis.viewpager22.PerfilPartitsPendents.Pendent;
 import com.example.btis.viewpager22.R;
 
 import java.util.List;

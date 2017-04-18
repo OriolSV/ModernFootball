@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.btis.viewpager22.PerfilUsuari.MainActivity;
+import com.example.btis.viewpager22.PerfilUsuari.ProfileActivity;
 import com.example.btis.viewpager22.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                         social.putString("Instagram", String.valueOf(txtInstagram));
                         social.putString("Twitter", String.valueOf(txtTwitter));
                         social.putString("User", String.valueOf(txtUsername));
-                        Intent next = new Intent(RegisterActivity.this, MainActivity.class);
+                        Intent next = new Intent(RegisterActivity.this, ProfileActivity.class);
                         next.putExtras(social);
                         startActivity(next);
 

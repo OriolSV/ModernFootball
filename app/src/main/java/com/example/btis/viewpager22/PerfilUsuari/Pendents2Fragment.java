@@ -1,4 +1,4 @@
-package com.example.btis.viewpager22.PerfilPartitsPendents;
+package com.example.btis.viewpager22.PerfilUsuari;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -22,26 +22,39 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-       <!-- <ImageView android:src="@drawable/header_green"
-            android:layout_width="300dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="30dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitXY" />-->
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+
+            />
 
         <EditText
             android:id="@+id/txtMail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="100dp"
             android:background="@color/white"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
+            android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textColor="@color/txtLogin"
-            android:textColorHint="@color/txtLoginHint"
-            />
+            android:textColorHint="@color/txtLoginHint" />
 
         <EditText
             android:id="@+id/txtPass"
@@ -57,26 +70,17 @@
             android:textColorHint="@color/txtLoginHint"
             />
 
-        <CheckBox
-            android:id="@+id/chkPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/chk"
-            android:textColor="@android:color/black"
-            />
-
         <!-- Login Button -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="@string/btnLogin"
             android:background="@color/btnLogin_bg"
-            android:textColor="@color/btnLogin"
-            android:textSize="16sp"
             android:onClick=""
-            />
+            android:text="@string/btnLogin"
+            android:textColor="@color/btnLogin"
+            android:textSize="12sp" />
 
         <!-- Link to Login Screen -->
 
@@ -89,8 +93,7 @@
             android:text="@string/btnToRegister"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.btis.viewpager22.PerfilUsuari.MainActivity">
+    tools:context="com.example.btis.viewpager22.PerfilUsuari.ProfileActivity">
 
 
 

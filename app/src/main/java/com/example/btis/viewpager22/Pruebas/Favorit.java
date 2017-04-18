@@ -1,4 +1,4 @@
-package com.example.btis.viewpager22.PerfilEquipsFavorits;
+package com.example.btis.viewpager22.Pruebas;
 
 /**
  * Created by BTIS on 12/04/2017.

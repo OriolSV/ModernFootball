@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.btis.viewpager22.Login.LoginActivity;
-import com.example.btis.viewpager22.PerfilEquipsFavorits.Fragment2;
-import com.example.btis.viewpager22.PerfilPartitsPendents.Pendents2Fragment;
 import com.example.btis.viewpager22.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,7 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     /*
     D
@@ -211,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         @Override
         public Fragment getItem(int position) {
 
-            if (position ==1){
+            if (position ==0){
 
 
                 return Pendents2Fragment.newInstance(position + 1);

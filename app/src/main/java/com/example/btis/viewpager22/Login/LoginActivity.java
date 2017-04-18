@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.btis.viewpager22.PerfilUsuari.MainActivity;
+import com.example.btis.viewpager22.PerfilUsuari.ProfileActivity;
 import com.example.btis.viewpager22.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,16 +27,16 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+
     private GoogleApiClient googleApiClient;
-
-    private SignInButton signInButton;
-
-    public static final int SIGN_IN_CODE = 777;
-
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+    private SignInButton signInButton;
     private ProgressBar progressBar;
+
+    public static final int SIGN_IN_CODE = 777;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,24 +51,27 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
 
+        /*
+        Inicialización google API client
+        Parámetro builder es el contexto (activity login)
+        EnableAutoManage (activity, "quien" se encargará de escuchar si algo salió mal)
+        -> permite gestionar automáticamente el ciclo de vida del google API client con el
+        de la activity
+         */
 
-        //Inicialización google API client
-        //Parámetro builder es el contexto (activity login)
-        //EnableAutoManage (activity, "quien" se encargará de escuchar si algo salió mal)
-        // -> permite gestionar automáticamente el ciclo de vida del google API client con el
-        //de la activity
         googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso )
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        //Método OnClick del botón GoogleSignIn
         signInButton = (SignInButton) findViewById(R.id.signInBtn);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Intent inicio de sesion para una cuenta google
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                //Esperamos un resultado con un código único
+                //Esperamos un resultado para un código único
                 startActivityForResult(intent, SIGN_IN_CODE);
             }
         });
@@ -111,24 +112,24 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onActivityResult(requestCode, resultCode, data);
 
         // Si es el resultado que nos interesa
-        if (requestCode == SIGN_IN_CODE){
+        if (requestCode == SIGN_IN_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult (result);
+            handleSignInResult(result);
         }
     }
 
     //Comprobamos si la operación ha sido exitosa
     private void handleSignInResult(GoogleSignInResult result) {
 
-        if (result.isSuccess()){
+        if (result.isSuccess()) {
             firebaseAuthWithGoogle(result.getSignInAccount());
 
-        }else {
-            Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error en la connexió. Torna a provar", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void firebaseAuthWithGoogle (GoogleSignInAccount signInAccount){
+    private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
 
         progressBar.setVisibility(View.VISIBLE);
         signInButton.setVisibility(View.GONE);
@@ -150,9 +151,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
 
-
     private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
